@@ -53,6 +53,7 @@ div.grid4 {
     to {transform: rotate(360deg);}
 }
 
+
 @keyframes ani_grid2 {
 	0% {background-color: black;}
 	20% {background-color: green;}
@@ -60,6 +61,8 @@ div.grid4 {
 	60% {background-color: red;}
 	80% {background-color: blue;}
 	100% {background-color: green;}
+	from {transform: rotate(0deg);}
+    to {transform: rotate(360deg);}
 }
 
 .fas {
