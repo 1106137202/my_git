@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS & JS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <script>
+        jQuery(document).ready(function(){
+            $.ajax({
+                type: "GET",
+                url: "http://cloud.culture.tw/frontsite/trans/emapOpenDataAction.do?method=exportEmapJson&typeId=K",
+                dataType: "json",
+                async: true,
+                success: function(arr) {
+                    console.log("success!");
+                    // console.log(data);
+                    var i;
+                    var out = '<table class="table table-striped table-hover"><thead><tr><th scope="col">#</th><th scope="col">群組類別</th>'
+                            + '<th scope="col">主類別</th><th scope="col">名稱</th><th scope="col">名稱英文</th><th scope="col">代表圖像</th><th scope="col">簡介</th><th scope="col">簡介英文</th><th scope="col">郵遞區號</th><th scope="col">縣市</th><th scope="col">地址</th><th scope="col">經度</th><th scope="col">緯度</th><th scope="col">點閱數</th></tr></thead><tbody>';
+            
+                        for(i = 0; i < arr.length; i++) {
+                            out += '<tr><th scope="row">' + i + '</th><td>' +
+                            arr[i].groupTypeName + "</td><td>" +
+                            arr[i].mainTypeName + "</td><td>" +
+                            arr[i].mainTypePK  + "</td><td>"
+							arr[i].name + "</td><td>" + 
+							arr[i].name_eng + "</td><td>" +
+							arr[i].representImage + "</td><td>" +
+							arr[i].intro + "</td><td>" +
+							arr[i].intro_eng + "</td><td>" +
+							arr[i].areaCode + "</td><td>" +
+							arr[i].cityName + "</td><td>" +
+							arr[i].address + "</td><td>" +
+							arr[i].longitude + "</td><td>" +
+							arr[i].latitude + "</td><td>" +
+							arr[i].hitRate + "</td><td>" +
+							"</td></tr>";
+                        }
+                        out += "</tbody></table>";
+                        document.getElementById("data_grid").innerHTML = out;
+                    }
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <h1>Get JSON Open Data</h1>
+    <h3>Using jQuery ajax</h3>
+    <div id="data_grid"></div>
+</body>
+</html>
