@@ -13,7 +13,7 @@
 	
 	<script>
 	var xmlhttp = new XMLHttpRequest();
-	var url = "http://cloud.culture.tw/frontsite/trans/emapOpenDataAction.do?method=exportEmapJson&typeId=K";
+	var url = "https://opendata.cwb.gov.tw/fileapi/v1/opendataapi/O-A0002-001?Authorization=rdec-key-123-45678-011121314&format=JSON";
 
 	xmlhttp.onreadystatechange=function() {
 		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -26,25 +26,16 @@
 	function myFunction(response) {
 		var arr = JSON.parse(response);
 		var i;
-		var out = "<table><tr><th>群組類別</th><th>主類別</th><th>名稱</th><th>名稱英文</th><th>代表圖表</th><th>簡介</th><th>簡介英文</th><th>郵遞區號</th><th>縣市</th><th>地址</th><th>經度</th><th>緯度</th><th>點閱數</th></tr>";
+		var out = "<table><tr><th>測站編號</th><th>經度</th><th>緯度</th><th>地點名稱</th><th>觀測時間</th></tr>";
 
 		for(i = 0; i < arr.length; i++) {
-			out += "<tr><td>" + i + '</th><td>' +
-                            arr[i].groupTypeName + "</td><td>" +
-                            arr[i].mainTypeName + "</td><td>" +
-                            arr[i].mainTypePK  + "</td><td>" +
-							arr[i].name + "</td><td>" + 
-							arr[i].name_eng + "</td><td>" +
-							arr[i].representImage + "</td><td>" +
-							arr[i].intro + "</td><td>" +
-							arr[i].intro_eng + "</td><td>" +
-							arr[i].areaCode + "</td><td>" +
-							arr[i].cityName + "</td><td>" +
-							arr[i].address + "</td><td>" +
-							arr[i].longitude + "</td><td>" +
-							arr[i].latitude + "</td><td>" +
-							arr[i].hitRate + "</td><td>" +
-							"</td></tr>";
+			out += "<tr><td>" +
+			arr[i].stationId + "</td><td>" +
+			arr[i].lat + "</td><td>" +
+			arr[i].lon + "</td><td>" +
+			arr[i].locationName + "</td><td>"+
+			arr[i].obsTime + "</td><td>"+
+			"</td></tr>";
 		out += "</table>";
 		document.getElementById("data_grid").innerHTML = out;
 	}
