@@ -13,7 +13,7 @@
 	
 	<script>
 	var xmlhttp = new XMLHttpRequest();
-	var url = "https://opendata.cwb.gov.tw/fileapi/v1/opendataapi/O-A0002-001?Authorization=rdec-key-123-45678-011121314&format=JSON";
+	var url = "https://cloud.culture.tw/frontsite/trans/SearchShowAction.do?method=doFindTypeJ&category=6";
 
 	xmlhttp.onreadystatechange=function() {
 		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -26,16 +26,13 @@
 	function myFunction(response) {
 		var arr = JSON.parse(response);
 		var i;
-		var out = "<table><tr><th>測站編號</th><th>經度</th><th>緯度</th><th>地點名稱</th><th>觀測時間</th></tr>";
+		var out = "<table><tr><th>活動名稱</th><th>地址</th><th>活動日期</th></tr>";
 
 		for(i = 0; i < arr.length; i++) {
 			out += "<tr><td>" +
-			arr[i].stationId + "</td><td>" +
-			arr[i].lat + "</td><td>" +
-			arr[i].lon + "</td><td>" +
-			arr[i].locationName + "</td><td>"+
-			arr[i].obsTime + "</td><td>"+
-			"</td></tr>";
+			arr[i].title + "</td><td>" +
+			arr[i].location + "</td><td>" +
+			arr[i].startDate + " ~ " + arr[i].endDate + "</td></tr>";
 		out += "</table>";
 		document.getElementById("data_grid").innerHTML = out;
 	}
