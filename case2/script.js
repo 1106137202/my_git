@@ -10,9 +10,9 @@ $(document).ready(function() {
 	
 	function getTaiwanWeather(city_name) {
 		//Weather Forecast Open Data API
-		var Your_Weather_API_key = "CWB-DF9C065C-4BE1-4E19-85B6-3496DF3DA85D";  //IMPORTANT, replace it with your weather API Authkey 中央氣象局授權碼
+		var Your_Weather_API_key = "CWB-5BCB34BC-5FF4-46B1-B279-430EA5A4F86A";  //IMPORTANT, replace it with your weather API Authkey 中央氣象局授權碼
 		//中央氣象局 F-C0032-001 一般天氣預報-今明 36 小時天氣預報資料 API 全部縣市
-		var url_all = "https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=" + Your_Weather_API_key + "&format=JSON";
+		var url_all = "https://opendata.cwb.gov.tw/api/v1/rest/datastore/C-B0025-001?Authorization=" + Your_Weather_API_key ;
 		//中央氣象局 F-C0032-001 一般天氣預報-今明 36 小時天氣預報資料 API by 縣市
 		var url_city = "https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=" + Your_Weather_API_key + "&format=JSON&locationName=";
 		var jqxhr = $.getJSON(url_city + city_name, function() {
@@ -22,9 +22,9 @@ $(document).ready(function() {
 			console.log("The second success.");
 			// var outStr = JSON.stringify(arr);
 			
-			var time_1 = arr.records.location[0].weatherElement[0].time[0].startTime.substr(5,8).replace("-","/") + "時";
-			var time_2 = arr.records.location[0].weatherElement[0].time[1].startTime.substr(5,8).replace("-","/") + "時";
-			var time_3 = arr.records.location[0].weatherElement[0].time[2].startTime.substr(5,8).replace("-","/") + "時";
+			var time_1 = arr.records.location[0].weatherElement[0].time[0].dateTime;
+			var time_2 = arr.records.location[0].weatherElement[0].time[1].dateTime;
+			var time_3 = arr.records.location[0].weatherElement[0].time[2].dateTime;
 			//主時間 Day 2, 3, 4 時間資料 #date, #day2, day3, day4
 			$("#city").text(city_name);
 			$("#date").text(time_1.substr(0,5));
@@ -33,10 +33,10 @@ $(document).ready(function() {
 			$("#day4").text(time_3);
 			
 			//天氣概況 #weather-description
-			var weather_1 = arr.records.location[0].weatherElement[0].time[0].parameter.parameterName;
-			var weather_value_1 = arr.records.location[0].weatherElement[0].time[0].parameter.parameterValue;
-			var weather_value_2 = arr.records.location[0].weatherElement[0].time[1].parameter.parameterValue;
-			var weather_value_3 = arr.records.location[0].weatherElement[0].time[2].parameter.parameterValue;
+			var weather_1 = arr.records.location[0].weatherElement[0].time[0].elementValue;
+			var weather_value_1 = arr.records.location[0].weatherElement[0].time[0].elementValue;
+			var weather_value_2 = arr.records.location[0].weatherElement[0].time[1].elementValue;
+			var weather_value_3 = arr.records.location[0].weatherElement[0].time[2].elementValue;
 			$("#weather-description").text(weather_1);
 			//skycons.set("weather-icon", icon); https://github.com/darkskyapp/skycons {"clear-day", "clear-night", "partly-cloudy-day", "partly-cloudy-night", "cloudy", "rain", "sleet", "snow", "wind", "fog"}
 			//Use dictionary to map weather icon (ForecastElement.PDF)
